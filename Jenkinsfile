@@ -5,8 +5,8 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    // Build and start the Docker Compose services
-                    sh 'docker-compose up -d --build'
+                    // Ensure Docker Compose is used with the correct user permissions
+                    sh 'newgrp docker && docker-compose up -d --build'
                 }
             }
         }
@@ -14,7 +14,7 @@ pipeline {
             steps {
                 script {
                     // Run tests if you have any
-                    sh 'docker-compose exec app npm test'
+                    sh 'newgrp docker && docker-compose exec app npm test'
                 }
             }
         }
