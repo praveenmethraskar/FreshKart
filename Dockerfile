@@ -1,15 +1,16 @@
-FROM node:14
+FROM node:20-alpine
 
-# Create app directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# Install app dependencies
-COPY package*.json ./
+COPY package.json .
 
-RUN npm install
+ARG NODE_ENV
 
-# Bundle app source
+RUN if [ $NODE_ENV == prod ]; then \
+        npm install --only=production;  \
+    else npm install; \
+    fi 
+
 COPY . .
 
-EXPOSE 8080
-CMD [ "node", "src/app.js" ]
+CMD ["node", "server.js"]
