@@ -13,4 +13,4 @@ RUN if [ $NODE_ENV == prod ]; then \
 
 COPY . .
 
-CMD ["node", "server.js"]
+CMD ["npm", "start"]
