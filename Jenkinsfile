@@ -4,7 +4,7 @@ pipeline {
     stages {
                 stage('clone') {
             steps {
-                git 'https://github.com/praveenmethraskar/FreshKart.git'
+                 git branch: 'main', url: 'https://github.com/praveenmethraskar/FreshKart.git'
             }
         }
         stage('Build') {
