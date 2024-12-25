@@ -2,19 +2,16 @@ pipeline {
     agent any
 
     stages {
+                stage('clone') {
+            steps {
+                git 'https://github.com/praveenmethraskar/FreshKart.git'
+            }
+        }
         stage('Build') {
             steps {
                 script {
                     // Ensure Docker Compose is used with the correct user permissions
-                    sh 'newgrp docker && docker-compose up -d --build'
-                }
-            }
-        }
-        stage('Test') {
-            steps {
-                script {
-                    // Run tests if you have any
-                    sh 'newgrp docker && docker-compose exec app npm test'
+                    sh 'docker-compose up -d --build'
                 }
             }
         }
